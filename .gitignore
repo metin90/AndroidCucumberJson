@@ -1,0 +1,17 @@
+﻿.idea
+target
+Screenshots
+reports
+cucumber-reports
+/target/
+/Screenshots/
+/reports/
+/cucumber-reports/
+.iml
+.log
+*.iml
+*.log
+*.html
+*.png
+
+

@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.androidcucumber</groupId>
+    <artifactId>AndroidCucumber</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+
+
+
+        </plugins>
+    </build>
+
+    <properties>
+<!--        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>-->
+<!--        <timestamp>${maven.build.timestamp}</timestamp>-->
+<!--        <maven.build.timestamp.format>yyyyMMdd-HHmm</maven.build.timestamp.format>-->
+        <xmlName>Regression</xmlName>
+
+    </properties>
+
+
+    <profiles>
+
+        <!-- Test Scenarios -->
+        <profile>
+            <id>Test</id>
+            <build>
+                <plugins>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>3.0.0-M4</version>
+                        <configuration>
+
+                            <suiteXmlFiles>
+                                <suiteXmlFile>XMLFiles/Test.xml</suiteXmlFile>
+                            </suiteXmlFiles>
+                            <!-- Build with '-DskipTests=true' to bypass test execution @ build time Default: false -->
+                            <testFailureIgnore>true</testFailureIgnore>
+                            <!--<reportsDirectory>./test-output/${timestamp}</reportsDirectory>-->
+
+                        </configuration>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>net.masterthought</groupId>
+                        <artifactId>maven-cucumber-reporting</artifactId>
+                        <version>3.15.0</version>
+                        <executions>
+                            <execution>
+                                <id>execution</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                                <configuration>
+                                    <projectName>AndroidCucumber</projectName>
+                                    <outputDirectory>${project.build.directory}/cucumber-JVM-reports</outputDirectory>
+                                    <cucumberOutput>${project.build.directory}/cucumber.json</cucumberOutput>
+<!--                                    <skippedFails>true</skippedFails>-->
+<!--                                    <enableFlashCharts>true</enableFlashCharts>-->
+                                    <buildNumber>1</buildNumber>
+                                </configuration>
+                            </execution>
+                        </executions>
+
+                    </plugin>
+
+
+                </plugins>
+                <resources>
+                    <resource> <directory>src/main/resources</directory> </resource>
+                </resources>
+            </build>
+        </profile>
+
+        <!-- Regression Test Scenarios -->
+        <profile>
+            <id>Regression</id>
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M4</version>
+                <configuration>
+
+                    <suiteXmlFiles>
+                        <suiteXmlFile>XMLFiles/Regression_Tests.xml</suiteXmlFile>
+                    </suiteXmlFiles>
+                    <testFailureIgnore>true</testFailureIgnore>
+
+                </configuration>
+            </plugin>
+        </plugins>
+        <resources>
+            <resource> <directory>src/main/resources</directory> </resource>
+        </resources>
+    </build>
+        </profile>
+
+        <!-- Smoke Test Scenarios -->
+        <profile>
+            <id>SmokeTests</id>
+            <build>
+                <plugins>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>3.0.0-M4</version>
+                        <configuration>
+
+                            <suiteXmlFiles>
+                                <suiteXmlFile>XMLFiles/Smoke_Tests.xml</suiteXmlFile>
+                            </suiteXmlFiles>
+                            <testFailureIgnore>true</testFailureIgnore>
+
+                        </configuration>
+                    </plugin>
+
+                </plugins>
+                <resources>
+                    <resource> <directory>src/main/resources</directory> </resource>
+                </resources>
+            </build>
+        </profile>
+
+        <!--Run Scenarios -->
+        <profile>
+            <id>Run</id>
+            <build>
+                <plugins>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>3.0.0-M4</version>
+                        <configuration>
+
+                            <suiteXmlFiles>
+                                <suiteXmlFile>XMLFiles/${xmlName}.xml</suiteXmlFile>
+                            </suiteXmlFiles>
+                            <testFailureIgnore>true</testFailureIgnore>
+
+                        </configuration>
+                    </plugin>
+
+                </plugins>
+                <resources>
+                    <resource> <directory>src/main/resources</directory> </resource>
+                </resources>
+            </build>
+        </profile>
+
+
+
+    </profiles>
+
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>3.141.59</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.14.3</version>
+        </dependency>
+
+
+        <!--        <dependency>-->
+<!--            <groupId>com.aventstack</groupId>-->
+<!--            <artifactId>extentreports</artifactId>-->
+<!--            <version>3.1.5</version>-->
+<!--        </dependency>-->
+
+        <dependency>
+            <groupId>com.relevantcodes</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>2.41.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.6</version>
+        </dependency>
+
+        <!--TestLink -->
+        <dependency>
+            <groupId>org.apache.ws.commons.util</groupId>
+            <artifactId>ws-commons-util</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.xmlrpc</groupId>
+            <artifactId>xmlrpc-client</artifactId>
+            <version>3.1.3</version>
+        </dependency>
+
+
+<!--        <dependency>-->
+<!--            <groupId>testlink</groupId>-->
+<!--            <artifactId>testlink</artifactId>-->
+<!--            <scope>system</scope>-->
+<!--            <version>2.0</version>-->
+<!--            <systemPath>${basedir}/JarFiles/testlink-api-client-2.0.jar</systemPath>-->
+<!--        </dependency>-->
+
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>4.1.2</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/br.eti.kinoshita/testlink-java-api -->
+        
+
+        <dependency>
+            <groupId>com.github.kalokanand</groupId>
+            <artifactId>testlink-api-client</artifactId>
+            <version>2.0</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/org.mongodb/mongodb-driver-sync -->
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongodb-driver-sync</artifactId>
+            <version>4.2.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/net.lingala.zip4j/zip4j -->
+        <!--         include zip methods-->
+        <dependency>
+            <groupId>net.lingala.zip4j</groupId>
+            <artifactId>zip4j</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+
+<!--        Android-->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-android-driver</artifactId>
+            <version>2.39.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.appium</groupId>
+            <artifactId>java-client</artifactId>
+            <version>7.3.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.13</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.4.14</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.31</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.31</version>
+        </dependency>
+
+
+<!--        cuumber integration-->
+
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-jvm</artifactId>
+            <version>1.2.5</version>
+            <type>pom</type>
+        </dependency>
+
+        <dependency>
+            <groupId>net.masterthought</groupId>
+            <artifactId>cucumber-reporting</artifactId>
+            <version>3.8.0</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>4.8.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-testng</artifactId>
+            <version>4.8.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-picocontainer</artifactId>
+            <version>4.8.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-jvm-deps</artifactId>
+            <version>1.0.6</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+
+
+
+
+
+
+
+
+
+
+    </dependencies>
+</project>
