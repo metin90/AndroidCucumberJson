@@ -1,6 +1,7 @@
 package BaseFiles;
 
 
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
@@ -59,7 +60,7 @@ public class IOS implements BaseEnvironment {
     }
 
     @Override
-    public MobileDriver runWithNodeJs(String platforName, String deviceName, String platformVersion, String udID, String ipAddress, String port) {
+    public AppiumDriver runWithNodeJs(String platforName, String deviceName, String platformVersion, String udID, String ipAddress, String port) {
 
         IOSDriver driver = null;
         DesiredCapabilities dc =getCapabilities(platforName,deviceName,platformVersion,udID,ipAddress,port);
@@ -75,7 +76,7 @@ public class IOS implements BaseEnvironment {
     }
 
     @Override
-    public MobileDriver runWithAppiumServer(DesiredCapabilities dc, String ipAddress, String port) {
+    public AppiumDriver runWithAppiumServer(DesiredCapabilities dc, String ipAddress, String port) {
 
         IOSDriver driver = null;
         try {

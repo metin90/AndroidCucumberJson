@@ -1,7 +1,6 @@
 package runners;
 
 import BaseFiles.TestBase;
-
 import io.cucumber.testng.CucumberOptions;
 import io.cucumber.testng.FeatureWrapper;
 import io.cucumber.testng.PickleWrapper;
@@ -13,16 +12,10 @@ import org.testng.annotations.Test;
 
 
 @CucumberOptions(
-        features = "src/test/resources/features/LoginBasarisiz.feature",
+        features = "src/test/resources/features/LoginYeni.feature",
         glue = {"stepdefs"},
-        plugin = {
+        tags = "@LoginYeniTest"
 
-                "pretty",
-                "html:target/cucumber-html-report",
-                "json:target/cucumber.json",
-                "junit:target/cucumber.xml",
-                "rerun:target/rerun.txt"
-        }
 //        ,format = {
 //                "pretty",
 //                "html:target/cucumber-reports/cucumber-pretty",
@@ -31,14 +24,15 @@ import org.testng.annotations.Test;
 //        }
         )
 
-public class Login_Basarisiz_Runner extends TestBase {
+public class LoginYeni_Runner extends TestBase {
 
     private TestNGCucumberRunner testNGCucumberRunner;
     @BeforeClass(alwaysRun = true)
     public void setUpClass() {
         testNGCucumberRunner = new TestNGCucumberRunner(this.getClass());
     }
-    @Test(groups = "cucumber", description = "Run Cucumber Features.", dataProvider = "scenarios")
+
+    @Test(description = "Login", dataProvider = "scenarios")
     public void scenario(PickleWrapper pickleWrapper, FeatureWrapper featureWrapper) {
         testNGCucumberRunner.runScenario(pickleWrapper.getPickle());
     }
@@ -46,9 +40,9 @@ public class Login_Basarisiz_Runner extends TestBase {
     public Object[][] scenarios() {
         return testNGCucumberRunner.provideScenarios();
     }
+
     @AfterClass(alwaysRun = true)
     public void tearDownClass() {
         testNGCucumberRunner.finish();
     }
-
 }

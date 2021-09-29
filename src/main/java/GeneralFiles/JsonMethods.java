@@ -41,6 +41,9 @@ public class JsonMethods {
         try {
             String array[]=getJsonData(jsonParameterName).split(";");
             String data=array[1];
+            array[0]=array[0].replaceAll("\"","");
+            data=data.substring(0,data.length() - 1);
+
             if(array[0].equalsIgnoreCase("id")){
                 locator=By.id(data);
             }else if(array[0].equalsIgnoreCase("className")){

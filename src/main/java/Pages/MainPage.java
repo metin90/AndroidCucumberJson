@@ -2,6 +2,7 @@ package Pages;
 
 import GeneralFiles.BasePage;
 import GeneralFiles.ReportMethods;
+import io.cucumber.java.en.And;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.Reporter;
@@ -24,6 +25,19 @@ public class MainPage extends BasePage {
 
         return this;
     }
+
+
+    public MainPage clickLoginButton(String jsonParameter){
+        try {
+            clickElement(jsonParameter);
+            reporter.Report_Info("GİRİŞ YAP butonuna tiklanmistir.");
+        }catch (Exception e){
+            Assert.fail(e.getMessage());
+        }
+
+        return this;
+    }
+
 
     public MainPage clickLoginButton(){
         try {

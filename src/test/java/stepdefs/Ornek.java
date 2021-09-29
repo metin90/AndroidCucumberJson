@@ -1,10 +1,9 @@
-package GeneralFiles;
+package stepdefs;
 
 
-import BaseFiles.TestBase;
-
+import GeneralFiles.JsonMethods;
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileDriver;
+import io.cucumber.java.en.And;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.*;
@@ -19,7 +18,6 @@ import java.io.FileFilter;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.nio.file.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -32,7 +30,7 @@ import java.util.regex.Pattern;
 import static BaseFiles.DriverManager.getDriver;
 
 
-public class BasePage {
+public class Ornek {
 
     public static ArrayList<String> windowList;
     private static final String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -175,7 +173,7 @@ public class BasePage {
     }
 
 
-
+    @And("^\"([^\"]*)\" tiklanir$")
     public void clickElement(String jsonParameterName) {
         By locator=JsonMethods.getLocator(jsonParameterName);
         WebElement element = this.waitUntilVisibleByLocator(locator);
@@ -228,7 +226,7 @@ public class BasePage {
         element.sendKeys(new CharSequence[]{text});
     }
 
-
+    @And("^([^\"]*) icerisine ([^\"]*) verisi girilir$")
     public void sendKeysToElement(String jsonParameterData, String text) {
         By locator=JsonMethods.getLocator(jsonParameterData);
         WebElement element = this.waitUntilVisibleByLocator(locator);

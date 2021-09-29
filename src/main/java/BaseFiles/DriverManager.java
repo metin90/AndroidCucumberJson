@@ -1,5 +1,6 @@
 package BaseFiles;
 
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileDriver;
 import org.openqa.selenium.WebDriver;
 
@@ -10,12 +11,12 @@ public class DriverManager {
     public DriverManager() {
     }
 
-    public static synchronized MobileDriver getDriver() {
-        return (MobileDriver)driverThread.get();
+    public static synchronized AppiumDriver getDriver() {
+        return (AppiumDriver) driverThread.get();
     }
 
 
-    public static synchronized void setDriver(MobileDriver driver) {
+    public static synchronized void setDriver(AppiumDriver driver) {
         driverThread.set(driver);
     }
 

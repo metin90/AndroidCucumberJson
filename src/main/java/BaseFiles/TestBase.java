@@ -2,7 +2,8 @@ package BaseFiles;
 
 import GeneralFiles.JsonMethods;
 import GeneralFiles.PropertiesFileReader;
-import cucumber.api.testng.TestNGCucumberRunner;
+
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.*;
@@ -18,7 +19,6 @@ import java.util.Properties;
 
 public class TestBase {
 
-    public static TestNGCucumberRunner testNGCucumberRunner;
     public static int RETRY=0;
     public static String JIRALINK=null;
     public static boolean ACTIVATE_APPIUMSERVER_WITH_NODEJS=false;
@@ -26,7 +26,7 @@ public class TestBase {
     public static boolean IOSREALDEVICE=false;
 
 
-    public static MobileDriver driver;
+    public static AppiumDriver driver;
 
     public void initializeConfig(String platformName){
 
@@ -67,25 +67,7 @@ public class TestBase {
         }
     }
 
-    @BeforeClass(alwaysRun = true)
-    public void beforeClass(){
-        testNGCucumberRunner = new TestNGCucumberRunner(this.getClass());
-    }
 
-    @DataProvider(parallel = true)
-    public Object[][] features() {
-        //return testNGCucumberRunner.provideFeatures();
-        return testNGCucumberRunner.provideScenarios();
-    }
-
-    @AfterClass(alwaysRun = true)
-    public void afterClass(){
-        try {
-            testNGCucumberRunner.finish();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
 
     @Parameters({"jsonFileName_","platformName_","deviceName_","platformVersion_","UDID_", "IPAddress_","Port_" })
     @BeforeMethod(alwaysRun = true)
@@ -140,13 +122,6 @@ public class TestBase {
 
     }
 
-    @BeforeTest
-    public void beforeTest(){
-    }
-
-    @AfterTest
-    public void afterTest(){
-    }
 
 
 
