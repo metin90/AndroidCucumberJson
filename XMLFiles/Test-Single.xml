@@ -1,0 +1,53 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Automation Suite" allow-return-values="true" verbose="1" parallel="tests"
+       thread-count="2"  configfailurepolicy="continue">
+
+    <listeners>
+        <listener class-name="utils.Listeners.TestListener"/>
+        <listener class-name="utils.Listeners.AnnotationTransformer"/>
+        <listener class-name="utils.CustomizedReport.CustomizedEmailableReport"/>
+    </listeners>
+
+    <parameter name="platformName_" value="Android"/>
+
+    <test name="Test" parallel="false">
+        <parameter name="jsonFileName_" value="login.json"></parameter>
+        <parameter name="deviceName_" value="b1e8d8c1"/>
+        <parameter name="UDID_" value="b1e8d8c1"/>
+        <parameter name="platformVersion_" value="14.2.2"></parameter>
+        <parameter name="IPAddress_" value="0.0.0.0"/>
+        <parameter name="Port_" value="4725"/>
+        <classes>
+            <class name="runners.LoginYeni_Runner"> </class>
+        </classes>
+    </test>
+
+
+<!--    <test name="Test-2" parallel="methods">-->
+
+<!--        <parameter name="deviceName_" value="b1e8d8c1"/>-->
+<!--        <parameter name="UDID_" value="b1e8d8c1"/>-->
+<!--        <parameter name="IPAddress_" value="121.0.0.1"/>-->
+<!--        <parameter name="Port_" value="4724"/>-->
+<!--        <classes>-->
+<!--            <class name="runners.Login_Basarisiz_Runner">-->
+<!--            </class>-->
+<!--        </classes>-->
+
+<!--    </test>-->
+
+<!--    <test name="Test-2">-->
+
+<!--        <parameter name="deviceName_" value="R58M4340C8H"/>-->
+<!--        <parameter name="UDID_" value="R58M4340C8H"/>-->
+<!--        <parameter name="IPAddress_" value="127.0.0.1"/>-->
+<!--        <parameter name="Port_" value="4725"/>-->
+<!--        <classes>-->
+<!--            <class name="runners.Login_Basarisiz_Runner">-->
+<!--            </class>-->
+<!--        </classes>-->
+
+<!--    </test>-->
+
+
+</suite>

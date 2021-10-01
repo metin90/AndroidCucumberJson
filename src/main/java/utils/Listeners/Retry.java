@@ -1,19 +1,13 @@
 package utils.Listeners;
 
 import BaseFiles.DriverManager;
-import BaseFiles.KeepData;
-import BaseFiles.TestBase;
 import GeneralFiles.BasePage;
-import GeneralFiles.TestLinkIntegration;
 import com.relevantcodes.extentreports.LogStatus;
 import io.appium.java_client.MobileDriver;
-import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;
-import testlink.api.java.client.TestLinkAPIResults;
 import utils.ExtentReports.ExtentTestManager;
 
 
