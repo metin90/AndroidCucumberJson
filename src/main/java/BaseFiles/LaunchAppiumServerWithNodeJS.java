@@ -75,7 +75,7 @@ public class LaunchAppiumServerWithNodeJS extends AndroidConstants {
                        .withArgument(GeneralServerFlag.LOG_LEVEL, "error")
                        .withArgument(GeneralServerFlag.RELAXED_SECURITY)
                        .withEnvironment(env)
-                       .withLogFile(new File("target/appium.log"))
+                       //.withLogFile(new File("target/appium.log"))
                        .withStartUpTimeOut(120, TimeUnit.SECONDS);
                BasicConfigurator.configure();
                service.build().start();
@@ -90,7 +90,7 @@ public class LaunchAppiumServerWithNodeJS extends AndroidConstants {
                        .withArgument(GeneralServerFlag.LOG_LEVEL, "error")
                        .withArgument(GeneralServerFlag.RELAXED_SECURITY)
                        .withEnvironment(env)
-                       .withLogFile(new File("target/appium.log"))
+                       //.withLogFile(new File("target/appium.log"))
                        .withStartUpTimeOut(120, TimeUnit.SECONDS));
 
                System.out.println("New Appium service: " + localService.getUrl());
@@ -115,7 +115,7 @@ public class LaunchAppiumServerWithNodeJS extends AndroidConstants {
             if (!TestBase.USEFREEPORT_VIA_NODEJS){
                 service.build().stop();
             }else{
-               localService.stop();
+               // localService.stop();
             }
 
             System.out.println("Appium server is now shut down!");

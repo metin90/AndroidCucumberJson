@@ -27,13 +27,13 @@ public class LaunchAppiumServer {
             .withArgument(GeneralServerFlag.SESSION_OVERRIDE)
             .withArgument(GeneralServerFlag.LOG_LEVEL,"error")
                     .withEnvironment(env)
-                    .withLogFile(new File("target/appium.log"))
+                    //.withLogFile(new File("target/appium.log"))
                     .withStartUpTimeOut(120, TimeUnit.SECONDS);
 
             //Start the server with the builder
             service = AppiumDriverLocalService.buildService(builder);
             service.start();
-            System.out.println("Appium Service started at "+service.getUrl().toString());
+           // System.out.println("Appium Service started at "+service.getUrl().toString());
             System.out.println("Appium Server is at your service! IP Address: "+ipAddress+", Port: "+port);
 
         }catch (Exception e){
