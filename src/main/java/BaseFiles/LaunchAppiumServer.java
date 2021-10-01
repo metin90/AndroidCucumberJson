@@ -17,12 +17,14 @@ public class LaunchAppiumServer {
             builder.withIPAddress(ipAddress);
             builder.usingPort(Integer.parseInt(port));
             builder.withCapabilities(cap);
+            builder.withArgument(GeneralServerFlag.RELAXED_SECURITY);
             builder.withArgument(GeneralServerFlag.SESSION_OVERRIDE);
             builder.withArgument(GeneralServerFlag.LOG_LEVEL,"error");
 
             //Start the server with the builder
             service = AppiumDriverLocalService.buildService(builder);
             service.start();
+            System.out.println("Appium Service started at "+service.getUrl().toString());
             System.out.println("Appium Server is at your service! IP Address: "+ipAddress+", Port: "+port);
 
         }catch (Exception e){
