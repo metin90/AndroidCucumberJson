@@ -14,7 +14,16 @@ import org.testng.annotations.Test;
 @CucumberOptions(
         features = "src/test/resources/features/LoginYeni.feature",
         glue = {"stepdefs"},
-        tags = "@LoginYeniTest"
+        tags = "@LoginYeniTest",
+        plugin = {
+
+                "pretty",
+                "html:target/cucumber-html-report",
+                "json:target/cucumber.json",
+                "junit:target/cucumber.xml",
+                "rerun:target/rerun.txt"
+        },
+        monochrome = true
 
 //        ,format = {
 //                "pretty",
