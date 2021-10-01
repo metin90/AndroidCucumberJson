@@ -53,7 +53,11 @@ public class Android implements BaseEnvironment{
         AndroidDriver driver = null;
         DesiredCapabilities dc =getCapabilities(platformName,deviceName,udID,ipAddress,port);
         try {
-            driver= new AndroidDriver(new URL("http://"+ipAddress+":"+port+"/wd/hub"), dc);
+            if (TestBase.USEFREEPORT_VIA_NODEJS){
+                driver= new AndroidDriver(new URL(KeepData.getUrl()),dc);
+            }else {
+                driver = new AndroidDriver(new URL("http://" + ipAddress + ":" + port + "/wd/hub"), dc);
+            }
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

@@ -24,6 +24,7 @@ public class TestBase {
     public static boolean ACTIVATE_APPIUMSERVER_WITH_NODEJS=false;
     public static String PLATFORMNAME=null;
     public static boolean IOSREALDEVICE=false;
+    public static boolean USEFREEPORT_VIA_NODEJS=false;
 
 
     public static AppiumDriver driver;
@@ -49,6 +50,10 @@ public class TestBase {
                 IOSREALDEVICE=true;
             }else{
                 IOSREALDEVICE=false;
+            }
+            if (properties.getProperty("useFreePort_ViaNodeJS").toLowerCase().equalsIgnoreCase("true")){
+                USEFREEPORT_VIA_NODEJS=true;
+                ACTIVATE_APPIUMSERVER_WITH_NODEJS=true;
             }
 
         }catch (Exception e){

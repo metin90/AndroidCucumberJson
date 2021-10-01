@@ -65,7 +65,11 @@ public class IOS implements BaseEnvironment {
         IOSDriver driver = null;
         DesiredCapabilities dc =getCapabilities(platforName,deviceName,platformVersion,udID,ipAddress,port);
         try {
-            driver= new IOSDriver(new URL("http://"+ipAddress+":"+port+"/wd/hub"), dc);
+            if (TestBase.USEFREEPORT_VIA_NODEJS){
+                driver= new IOSDriver(new URL(KeepData.getUrl()),dc);
+            }else {
+                driver = new IOSDriver(new URL("http://" + ipAddress + ":" + port + "/wd/hub"), dc);
+            }
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

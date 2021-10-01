@@ -11,6 +11,7 @@ public class KeepData {
     private static String jiraNumber=new String();
     private static ArrayList<String> testLinkNumber_List=new ArrayList<>();
     private static ArrayList<String> jiraNumber_List=new ArrayList<>();
+    private static String url=new String();
 
 
     public static String getWorkOrderID() {
@@ -71,5 +72,13 @@ public class KeepData {
       }catch (Exception e){
           e.getStackTrace();
       }
+    }
+
+    public static String getUrl() {
+        return url;
+    }
+
+    public static void setUrl(String url) {
+        KeepData.url = url;
     }
 }
