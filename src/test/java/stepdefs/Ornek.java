@@ -3,6 +3,7 @@ package stepdefs;
 
 import GeneralFiles.JsonMethods;
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
 import io.cucumber.java.en.And;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.openqa.selenium.NoSuchElementException;
@@ -38,12 +39,12 @@ public class Ornek {
 
     public AppiumDriver driver= getDriver();
 
-    public WebElement waitUntilVisibleByLocator(By locator) {
-        WebElement element = null;
+    public MobileElement waitUntilVisibleByLocator(By locator) {
+        MobileElement element = null;
 
         try {
-            Wait<WebDriver> wait = (new FluentWait(this.driver)).withTimeout(Duration.ofSeconds(30L)).pollingEvery(Duration.ofSeconds(30L)).ignoring(NoSuchElementException.class);
-            element = (WebElement)wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+            Wait<AppiumDriver> wait = (new FluentWait(this.driver)).withTimeout(Duration.ofSeconds(30L)).pollingEvery(Duration.ofSeconds(30L)).ignoring(NoSuchElementException.class);
+            element = (MobileElement)wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         } catch (Exception e) {
             Assert.fail(e.getMessage());
         }
@@ -52,12 +53,12 @@ public class Ornek {
     }
 
 
-    protected WebElement waitUntilClickableByListOfElement(WebElement webElement) {
-        WebElement element = null;
+    protected MobileElement waitUntilClickableByListOfElement(MobileElement MobileElement) {
+        MobileElement element = null;
 
         try {
-            Wait<WebDriver> wait = (new FluentWait(this.driver)).withTimeout(Duration.ofSeconds(30L)).pollingEvery(Duration.ofSeconds(30L)).ignoring(NoSuchElementException.class);
-            element = (WebElement)wait.until(ExpectedConditions.elementToBeClickable(webElement));
+            Wait<AppiumDriver> wait = (new FluentWait(this.driver)).withTimeout(Duration.ofSeconds(30L)).pollingEvery(Duration.ofSeconds(30L)).ignoring(NoSuchElementException.class);
+            element = (MobileElement)wait.until(ExpectedConditions.elementToBeClickable(MobileElement));
         } catch (Exception e) {
            Assert.fail(e.getMessage());
         }
@@ -66,12 +67,12 @@ public class Ornek {
     }
 
 
-    protected WebElement waitUntilPresenceOfElement(By locator) {
-        WebElement element = null;
+    protected MobileElement waitUntilPresenceOfElement(By locator) {
+        MobileElement element = null;
 
         try {
-            Wait<WebDriver> wait = (new FluentWait(this.driver)).withTimeout(Duration.ofSeconds(30L)).pollingEvery(Duration.ofMillis(30L)).ignoring(StaleElementReferenceException.class).ignoring(NoSuchElementException.class);
-            element = (WebElement)wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+            Wait<AppiumDriver> wait = (new FluentWait(this.driver)).withTimeout(Duration.ofSeconds(30L)).pollingEvery(Duration.ofMillis(30L)).ignoring(StaleElementReferenceException.class).ignoring(NoSuchElementException.class);
+            element = (MobileElement)wait.until(ExpectedConditions.presenceOfElementLocated(locator));
         } catch (Exception e) {
 
             //Assert.fail(e.getMessage());
@@ -86,7 +87,7 @@ public class Ornek {
 
         try {
 
-            WebElement element=driver.findElement(locator);
+            MobileElement element= (MobileElement) driver.findElement(locator);
 
             if (element.isDisplayed() || element.isEnabled()){
                 return true;
@@ -100,7 +101,7 @@ public class Ornek {
         }
     }
 
-    public boolean checkElementIsExist(WebElement element){
+    public boolean checkElementIsExist(MobileElement element){
         try {
             if (element.isDisplayed() || element.isEnabled()){
                 return true;
@@ -117,7 +118,7 @@ public class Ornek {
 
         try {
 
-            WebElement element=driver.findElement(locator);
+            MobileElement element= (MobileElement) driver.findElement(locator);
             element=element.findElement(locator2);
 
             if (element.isDisplayed() || element.isEnabled()){
@@ -133,9 +134,9 @@ public class Ornek {
     }
 
 
-    public boolean checkElementIsExist(WebElement element,By locator){
+    public boolean checkElementIsExist(MobileElement element,By locator){
         try {
-            WebElement element1=element.findElement(locator);
+            MobileElement element1=element.findElement(locator);
             if (element1.isDisplayed() || element1.isEnabled()){
                 return true;
             }else {
@@ -168,7 +169,7 @@ public class Ornek {
 
 
     public void clickElement(By locator) {
-        WebElement element = this.waitUntilVisibleByLocator(locator);
+        MobileElement element = this.waitUntilVisibleByLocator(locator);
         this.clickElement(element);
     }
 
@@ -176,13 +177,13 @@ public class Ornek {
     @And("^\"([^\"]*)\" tiklanir$")
     public void clickElement(String jsonParameterName) {
         By locator=JsonMethods.getLocator(jsonParameterName);
-        WebElement element = this.waitUntilVisibleByLocator(locator);
+        MobileElement element = this.waitUntilVisibleByLocator(locator);
         this.clickElement(element);
     }
 
     public void clickElementViaJS(By locator) {
        try {
-           WebElement element=driver.findElement(locator);
+           MobileElement element= (MobileElement) driver.findElement(locator);
            JavascriptExecutor executor = (JavascriptExecutor) driver;
            executor.executeScript("arguments[0].click();", element);
        }catch (Exception e){
@@ -190,14 +191,14 @@ public class Ornek {
        }
     }
 
-    protected void clickElement(WebElement element) {
+    protected void clickElement(MobileElement element) {
         this.waitUntilClickableByListOfElement(element).click();
     }
 
 
     public String getDataInListViaAttribute(By locator,String attributeName,int index){
 
-        List<WebElement> elements=null;
+        List<MobileElement> elements=null;
         String data=null;
         try {
 
@@ -210,7 +211,7 @@ public class Ornek {
         return data;
     }
 
-    public String getDataViaAttribute(WebElement element,String attributeName){
+    public String getDataViaAttribute(MobileElement element,String attributeName){
         try {
             return  element.getAttribute(attributeName);
         }catch (Exception e){
@@ -220,7 +221,7 @@ public class Ornek {
     }
 
     protected void sendKeysToElement(By locator, String text) {
-        WebElement element = this.waitUntilVisibleByLocator(locator);
+        MobileElement element = this.waitUntilVisibleByLocator(locator);
         element = this.waitUntilPresenceOfElement(locator);
         element.clear();
         element.sendKeys(new CharSequence[]{text});
@@ -229,25 +230,25 @@ public class Ornek {
     @And("^\"([^\"]*)\" icerisine \"([^\"]*)\" verisi girilir$")
     public void sendKeysToElement(String jsonParameterData, String text) {
         By locator=JsonMethods.getLocator(jsonParameterData);
-        WebElement element = this.waitUntilVisibleByLocator(locator);
+        MobileElement element = this.waitUntilVisibleByLocator(locator);
         element = this.waitUntilPresenceOfElement(locator);
         element.clear();
         element.sendKeys(new CharSequence[]{text});
     }
 
     protected void sendKeysToElementInList(By locator,int index, String text) {
-        WebElement element = getWebElementInList(locator,index);
+        MobileElement element = getMobileElementInList(locator,index);
         element.clear();
         element.sendKeys(new CharSequence[]{text});
     }
 
     protected void sendKeysToElement(By locator, Keys keys) {
-        WebElement element = this.waitUntilVisibleByLocator(locator);
+        MobileElement element = this.waitUntilVisibleByLocator(locator);
         element = this.waitUntilPresenceOfElement(locator);
         element.sendKeys(keys);
     }
 
-    protected void sendKeysToElement(WebElement element, String text) {
+    protected void sendKeysToElement(MobileElement element, String text) {
         element.clear();
         element.sendKeys(new CharSequence[]{text});
     }
@@ -255,7 +256,7 @@ public class Ornek {
     public void sendKeysToElementViaJS(By locator,String text){
         try {
             JavascriptExecutor js = (JavascriptExecutor)driver;
-            WebElement elem = driver.findElement(locator);
+            MobileElement elem = (MobileElement) driver.findElement(locator);
             js.executeScript("arguments[0].value =`"+text+"`", elem);
         }catch (Exception e){
             e.getStackTrace();
@@ -263,14 +264,14 @@ public class Ornek {
     }
 
     protected void sendKeysToElementWithoutClean(By locator, String text) {
-        WebElement element = this.waitUntilVisibleByLocator(locator);
+        MobileElement element = this.waitUntilVisibleByLocator(locator);
         element = this.waitUntilPresenceOfElement(locator);
         element.sendKeys(new CharSequence[]{text});
     }
 
     public int getSizeOfList(By locator){
         try {
-            List<WebElement> list= driver.findElements(locator);
+            List<MobileElement> list= driver.findElements(locator);
             return list.size();
 
         }catch (Exception e){
@@ -280,10 +281,10 @@ public class Ornek {
 
     public int getSizeOfListForVisible(By locator){
         try {
-            List<WebElement> list= driver.findElements(locator);
+            List<MobileElement> list= driver.findElements(locator);
             int count=0;
             for (int i = 0; i <list.size() ; i++) {
-                WebElement element=list.get(i);
+                MobileElement element=list.get(i);
                 if (element.isDisplayed()){
                     ++count;
                 }
@@ -299,7 +300,7 @@ public class Ornek {
 
         try {
 
-            List<WebElement> list= driver.findElements(locator);
+            List<MobileElement> list= driver.findElements(locator);
             clickElement(list.get(index));
 
         }catch (Exception e){
@@ -312,7 +313,7 @@ public class Ornek {
         boolean elementExist=false;
         try {
 
-            List<WebElement> list= driver.findElements(locator);
+            List<MobileElement> list= driver.findElements(locator);
             for (int i = 0; i <list.size() ; i++) {
                 String getData=list.get(i).getAttribute(attributeName);
                 if (getData.equals(data)){
@@ -390,7 +391,7 @@ public class Ornek {
     public String getData(By locator){
 
         try {
-            WebElement element= driver.findElement(locator);
+            MobileElement element= (MobileElement) driver.findElement(locator);
             return element.getText();
         }catch (Exception e){
             Assert.fail(e.getMessage());
@@ -401,7 +402,7 @@ public class Ornek {
     public String getData(By locator, String path){
 
         try {
-            WebElement element= driver.findElement(locator);
+            MobileElement element= (MobileElement) driver.findElement(locator);
             return element.findElement(By.xpath(path)).getText();
         }catch (Exception e){
             Assert.fail(e.getMessage());
@@ -414,7 +415,7 @@ public class Ornek {
         try {
 
             Actions builder = new Actions(driver);
-            WebElement element = driver.findElement(locator);
+            MobileElement element = (MobileElement) driver.findElement(locator);
             builder.moveToElement(element).build().perform();
 
         }catch (Exception e){
@@ -422,7 +423,7 @@ public class Ornek {
         }
     }
 
-    public void mouseHover(WebElement element){
+    public void mouseHover(MobileElement element){
 
         try {
 
@@ -435,19 +436,19 @@ public class Ornek {
     }
 
 
-    public void clickWebElement(By locator) {
-        WebElement element = this.waitUntilVisibleByLocator(locator);
-        this.clickWebElement(element);
+    public void clickMobileElement(By locator) {
+        MobileElement element = this.waitUntilVisibleByLocator(locator);
+        this.clickMobileElement(element);
     }
 
-    protected void clickWebElement(WebElement element) {
+    protected void clickMobileElement(MobileElement element) {
         this.waitUntilClickableByListOfElement(element).click();
     }
 
 
-    public List<WebElement> getWebElementsViaAttribute(By locator){
+    public List<MobileElement> getMobileElementsViaAttribute(By locator){
 
-        List<WebElement> elements=null;
+        List<MobileElement> elements=null;
 
         try {
 
@@ -465,7 +466,7 @@ public class Ornek {
         ArrayList<String> list=new ArrayList();
         try {
 
-            List<WebElement> elementList= driver.findElements(locator);
+            List<MobileElement> elementList= driver.findElements(locator);
 
             for (int i = 0; i <elementList.size() ; i++) {
 
@@ -487,7 +488,7 @@ public class Ornek {
         String list="";
         try {
 
-            List<WebElement> elementList= driver.findElements(locator);
+            List<MobileElement> elementList= driver.findElements(locator);
 
             for (int i = 0; i <elementList.size() ; i++) {
 
@@ -507,14 +508,14 @@ public class Ornek {
 
     }
 
-    public void clickElementInListViaContainsMethod(ArrayList<WebElement> list,String data){
+    public void clickElementInListViaContainsMethod(ArrayList<MobileElement> list,String data){
 
         try {
 
             for (int i = 0; i <list.size() ; i++) {
 
                 if (list.get(i).toString().toLowerCase().contains(data.toLowerCase())){
-                    clickWebElement(list.get(i));
+                    clickMobileElement(list.get(i));
                     break;
                 }
 
@@ -590,7 +591,7 @@ public class Ornek {
         }
     }
 
-    public String getDataViaJS(WebElement element){
+    public String getDataViaJS(MobileElement element){
 
         try {
 
@@ -689,10 +690,10 @@ public class Ornek {
         return sdf.format(date);
     }
 
-    public WebElement getWebElementInList(By locator,int index){
-        WebElement element=null;
+    public MobileElement getMobileElementInList(By locator,int index){
+        MobileElement element=null;
         try {
-            List<WebElement> list=driver.findElements(locator);
+            List<MobileElement> list=driver.findElements(locator);
             return list.get(index);
 
         }catch (Exception e){
@@ -701,8 +702,8 @@ public class Ornek {
         return element;
     }
 
-    public WebElement getWebElementInList(WebElement element,By locator){
-        WebElement element1=null;
+    public MobileElement getMobileElementInList(MobileElement element,By locator){
+        MobileElement element1=null;
         try {
             element1=element.findElement(locator);
         }catch (Exception e){
@@ -711,10 +712,10 @@ public class Ornek {
         return element1;
     }
 
-    public WebElement getWebElementInList(By locator,String attribute,String data){
-        WebElement element=null;
+    public MobileElement getMobileElementInList(By locator,String attribute,String data){
+        MobileElement element=null;
         try {
-            List<WebElement> list=driver.findElements(locator);
+            List<MobileElement> list=driver.findElements(locator);
             for (int i = 0; i <list.size() ; i++) {
                 String getData=list.get(i).getAttribute(attribute);
                 if (getData.equals(data)){
@@ -730,7 +731,7 @@ public class Ornek {
 
     public void cleanInsideOfTextbox(By locator){
         try {
-//            WebElement element=driver.findElement(locator);
+//            MobileElement element=driver.findElement(locator);
 //            JavascriptExecutor js = (JavascriptExecutor)driver;
 //            js.executeScript("arguments[0].value = '';", element);
             sendKeysToElement(locator," ");
@@ -763,7 +764,7 @@ public class Ornek {
     }
 
     public boolean checkElementEnableInList(By locator,int index){
-        List<WebElement> list=driver.findElements(locator);
+        List<MobileElement> list=driver.findElements(locator);
         return list.get(index).isEnabled();
     }
 
@@ -849,7 +850,7 @@ public class Ornek {
 
     public String getDataInList(By locator,int index){
 
-        List<WebElement> elements=null;
+        List<MobileElement> elements=null;
         String data=null;
         try {
 
@@ -887,7 +888,7 @@ public class Ornek {
     }
 
     public boolean checkElementEnableViaAttribute(By locator,String attribute){
-        String getData=getWebElementInList(locator,0).getAttribute(attribute);
+        String getData=getMobileElementInList(locator,0).getAttribute(attribute);
         return !getData.contains("disabled");
     }
 
@@ -941,7 +942,7 @@ public class Ornek {
         boolean elementExist=false;
         try {
 
-            List<WebElement> list= driver.findElements(locator);
+            List<MobileElement> list= driver.findElements(locator);
             for (int i = 0; i <list.size() ; i++) {
                 String getData=list.get(i).getText();
                 if (getData.equals(data)){
