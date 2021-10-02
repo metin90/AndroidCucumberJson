@@ -3,6 +3,7 @@ package utils.Listeners;
 import BaseFiles.DriverManager;
 import GeneralFiles.BasePage;
 import com.relevantcodes.extentreports.LogStatus;
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileDriver;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -35,7 +36,7 @@ public class Retry implements IRetryAnalyzer {
 
     public void extendReportsFailOperations(ITestResult iTestResult) {
         Object testClass = iTestResult.getInstance();
-        MobileDriver webDriver = DriverManager.getDriver();
+        AppiumDriver webDriver = DriverManager.getDriver();
         String base64Screenshot = "data:image/png;base64," + ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.BASE64);
 
         // Jira & TesLink Integration

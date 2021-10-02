@@ -4,7 +4,7 @@ import BaseFiles.DriverManager;
 import BaseFiles.TestBase;
 import GeneralFiles.BasePage;
 import com.relevantcodes.extentreports.LogStatus;
-import io.appium.java_client.MobileDriver;
+import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.testng.ITestContext;
@@ -52,7 +52,7 @@ public class TestListener extends TestBase implements ITestListener {
 
         //Get driver from BaseTest and assign to local webDriver variable.
         Object testClass = iTestResult.getInstance();
-        MobileDriver webDriver = DriverManager.getDriver();
+        AppiumDriver webDriver = DriverManager.getDriver();
 
         //Take base64Screenshot screenshot.
         String base64Screenshot = "data:image/png;base64," + ((TakesScreenshot) webDriver).

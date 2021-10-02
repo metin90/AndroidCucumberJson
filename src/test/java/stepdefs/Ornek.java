@@ -413,7 +413,6 @@ public class Ornek {
     public void mouseHover(By locator){
 
         try {
-
             Actions builder = new Actions(driver);
             MobileElement element = (MobileElement) driver.findElement(locator);
             builder.moveToElement(element).build().perform();
@@ -969,6 +968,11 @@ public class Ornek {
             getData=matcher.group();
         }
        return getData;
+    }
+
+    @And("^Uygulamanin cache ini temizle$")
+    public void cleanAppCache(){
+        driver.resetApp();
     }
 
 
