@@ -174,14 +174,6 @@ public class BasePage {
         this.clickElement(element);
     }
 
-
-
-    public void clickElement(String jsonParameterName) {
-        By locator=JsonMethods.getLocator(jsonParameterName);
-        WebElement element = this.waitUntilVisibleByLocator(locator);
-        this.clickElement(element);
-    }
-
     public void clickElementViaJS(By locator) {
        try {
            WebElement element=driver.findElement(locator);
@@ -222,15 +214,6 @@ public class BasePage {
     }
 
     protected void sendKeysToElement(By locator, String text) {
-        WebElement element = this.waitUntilVisibleByLocator(locator);
-        element = this.waitUntilPresenceOfElement(locator);
-        element.clear();
-        element.sendKeys(new CharSequence[]{text});
-    }
-
-
-    public void sendKeysToElement(String jsonParameterData, String text) {
-        By locator=JsonMethods.getLocator(jsonParameterData);
         WebElement element = this.waitUntilVisibleByLocator(locator);
         element = this.waitUntilPresenceOfElement(locator);
         element.clear();

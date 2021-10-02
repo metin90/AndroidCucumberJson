@@ -74,14 +74,14 @@ public class TestBase {
 
 
 
-    @Parameters({"jsonFileName_","platformName_","deviceName_","platformVersion_","UDID_", "IPAddress_","Port_" })
+    @Parameters({"platformName_","deviceName_","platformVersion_","UDID_", "IPAddress_","Port_" })
     @BeforeMethod(alwaysRun = true)
-    public void beforeMethod(Method method,ITestResult arg1,String jsonFileName_,String platformName_,String deviceName_, String platformVersion_, String UDID_, String IPAddress_,String Port_){
+    public void beforeMethod(Method method,ITestResult arg1,String platformName_,String deviceName_, String platformVersion_, String UDID_, String IPAddress_,String Port_){
 
         initializeConfig(platformName_);
         ExtentTestManager.startTest(method.getName(),arg1.getMethod().getDescription());
         DesiredCapabilities dc =null;
-        JsonMethods.setJsonObject(jsonFileName_);
+
 
         try {
             if (!ACTIVATE_APPIUMSERVER_WITH_NODEJS){

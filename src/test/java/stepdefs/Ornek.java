@@ -226,7 +226,7 @@ public class Ornek {
         element.sendKeys(new CharSequence[]{text});
     }
 
-    @And("^([^\"]*) icerisine ([^\"]*) verisi girilir$")
+    @And("^\"([^\"]*)\" icerisine \"([^\"]*)\" verisi girilir$")
     public void sendKeysToElement(String jsonParameterData, String text) {
         By locator=JsonMethods.getLocator(jsonParameterData);
         WebElement element = this.waitUntilVisibleByLocator(locator);

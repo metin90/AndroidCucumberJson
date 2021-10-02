@@ -27,18 +27,6 @@ public class MainPage extends BasePage {
     }
 
 
-    public MainPage clickLoginButton(String jsonParameter){
-        try {
-            clickElement(jsonParameter);
-            reporter.Report_Info("GİRİŞ YAP butonuna tiklanmistir.");
-        }catch (Exception e){
-            Assert.fail(e.getMessage());
-        }
-
-        return this;
-    }
-
-
     public MainPage clickLoginButton(){
         try {
             clickElement(login_Btn);

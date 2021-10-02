@@ -8,10 +8,10 @@
         <listener class-name="utils.CustomizedReport.CustomizedEmailableReport"/>
     </listeners>
 
-    <parameter name="platformName_" value="Android"/>
+
 
     <test name="Test" parallel="false">
-        <parameter name="jsonFileName_" value="login.json"></parameter>
+        <parameter name="platformName_" value="Android"/>
         <parameter name="deviceName_" value="b1e8d8c1"/>
         <parameter name="UDID_" value="b1e8d8c1"/>
         <parameter name="platformVersion_" value="14.2.2"></parameter>
