@@ -1,6 +1,9 @@
 package GeneralFiles;
 
+import BaseFiles.TestBase;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class KeepData {
 
@@ -10,6 +13,7 @@ public class KeepData {
     private static ArrayList<String> testLinkNumber_List=new ArrayList<>();
     private static ArrayList<String> jiraNumber_List=new ArrayList<>();
     private static String url=new String();
+    private static HashMap<String,String> keepHashData=new HashMap<>();
 
 
     public static String getWorkOrderID() {
@@ -78,5 +82,15 @@ public class KeepData {
 
     public static void setUrl(String url) {
         KeepData.url = url;
+    }
+
+    public static String getKeepHashData(String parameter) {
+        parameter=parameter+"-"+TestBase.PLATFORMNAME;
+        return keepHashData.get(parameter);
+    }
+
+    public static void setKeepHashData(String parameter, String value) {
+        parameter=parameter+"-"+TestBase.PLATFORMNAME;
+        KeepData.keepHashData.put(parameter,value);
     }
 }

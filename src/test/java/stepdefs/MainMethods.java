@@ -31,7 +31,7 @@ import java.util.regex.Pattern;
 import static BaseFiles.DriverManager.getDriver;
 
 
-public class Ornek {
+public class MainMethods {
 
     public static ArrayList<String> windowList;
     private static final String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
