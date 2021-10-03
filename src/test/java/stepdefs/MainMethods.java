@@ -81,12 +81,8 @@ public class MainMethods {
         return element;
     }
 
-
-
     public boolean checkElementIsExist(By locator){
-
         try {
-
             MobileElement element= (MobileElement) driver.findElement(locator);
 
             if (element.isDisplayed() || element.isEnabled()){
@@ -132,7 +128,6 @@ public class MainMethods {
             return false;
         }
     }
-
 
     public boolean checkElementIsExist(MobileElement element,By locator){
         try {
@@ -181,8 +176,10 @@ public class MainMethods {
         this.clickElement(element);
     }
 
-    public void clickElementViaJS(By locator) {
+    @And("^\"([^\"]*)\" JS araciligi ile tiklanir$")
+    public void clickElementViaJS(String jsonParameterName) {
        try {
+           By locator=JsonMethods.getLocator(jsonParameterName);
            MobileElement element= (MobileElement) driver.findElement(locator);
            JavascriptExecutor executor = (JavascriptExecutor) driver;
            executor.executeScript("arguments[0].click();", element);
@@ -194,7 +191,6 @@ public class MainMethods {
     protected void clickElement(MobileElement element) {
         this.waitUntilClickableByListOfElement(element).click();
     }
-
 
     public String getDataInListViaAttribute(By locator,String attributeName,int index){
 
@@ -236,8 +232,10 @@ public class MainMethods {
         element.sendKeys(new CharSequence[]{text});
     }
 
-    protected void sendKeysToElementInList(By locator,int index, String text) {
-        MobileElement element = getMobileElementInList(locator,index);
+    @And("^\"([^\"]*)\" elementlerinden \"([^\"]*)\" siradakinin icerisine \"([^\"]*)\" verisi girilir$")
+    protected void sendKeysToElementInList(String jsonParameterData,String index, String text) {
+        By locator=JsonMethods.getLocator(jsonParameterData);
+        MobileElement element = getMobileElementInList(locator,Integer.parseInt(index));
         element.clear();
         element.sendKeys(new CharSequence[]{text});
     }
@@ -246,6 +244,20 @@ public class MainMethods {
         MobileElement element = this.waitUntilVisibleByLocator(locator);
         element = this.waitUntilPresenceOfElement(locator);
         element.sendKeys(keys);
+    }
+
+    @And("^\"([^\"]*)\" icin ENTER tusuna tiklanir$")
+    public void clickEnterButton(String jsonParameterData){
+        By locator=JsonMethods.getLocator(jsonParameterData);
+        Keys keys= Keys.ENTER;
+        sendKeysToElement(locator,keys);
+    }
+
+    @And("^\"([^\"]*)\" icin TAB tusuna tiklanir$")
+    public void clickTabButton(String jsonParameterData){
+        By locator=JsonMethods.getLocator(jsonParameterData);
+        Keys keys= Keys.TAB;
+        sendKeysToElement(locator,keys);
     }
 
     protected void sendKeysToElement(MobileElement element, String text) {
@@ -528,23 +540,19 @@ public class MainMethods {
         }
     }
 
+    @And("^Geri butonuna tiklanir$")
     public void navigateBack(int times){
-
         try {
-
             for (int i = 0; i <times ; i++) {
                 driver.navigate().back();
                 driver.manage().timeouts().pageLoadTimeout(120, TimeUnit.SECONDS);
                 checkPageIsReady();
                 Thread.sleep(1000);
             }
-
             getLatestWindow();
-
         }catch (Exception e){
             Assert.fail(e.getMessage());
         }
-
     }
 
     public synchronized void getLatestWindow() {
