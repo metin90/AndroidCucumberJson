@@ -2,6 +2,7 @@ package stepdefs;
 
 
 import GeneralFiles.JsonMethods;
+import GeneralFiles.KeepData;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.cucumber.java.en.And;
@@ -223,6 +224,16 @@ public class MainMethods {
         element.sendKeys(new CharSequence[]{text});
     }
 
+    @And("^\"([^\"]*)\" icerisine \"([^\"]*)\" parametre icindeki veri girilir$")
+    public void sendKeysToElementUsingHashedData(String jsonParameterData, String dataParameter){
+        By locator=JsonMethods.getLocator(jsonParameterData);
+        String text= KeepData.getKeepHashData(dataParameter);
+        MobileElement element = this.waitUntilVisibleByLocator(locator);
+        element = this.waitUntilPresenceOfElement(locator);
+        element.clear();
+        element.sendKeys(new CharSequence[]{text});
+    }
+
     @And("^\"([^\"]*)\" icerisine \"([^\"]*)\" verisi girilir$")
     public void sendKeysToElement(String jsonParameterData, String text) {
         By locator=JsonMethods.getLocator(jsonParameterData);
@@ -421,6 +432,23 @@ public class MainMethods {
         }
         return "";
     }
+
+    @And("^\"([^\"]*)\" icindeki veriyi \"([^\"]*)\" olarak kaydet$")
+    public void setDataInHashMap(String jsonParameterData, String dataParameter){
+        By locator=JsonMethods.getLocator(jsonParameterData);
+        String value=getData(locator);
+        KeepData.setKeepHashData(dataParameter,value);
+    }
+
+    @And("^\"([^\"]*)\" icindeki veriyi \"([^\"]*)\" karakteri ile bol ve \"([^\"]*)\" olarak kaydet$")
+    public void setDataInHashMap(String jsonParameterData, String character, String dataParameter){
+        By locator=JsonMethods.getLocator(jsonParameterData);
+        String value=getData(locator);
+        String[] array=value.split(Pattern.quote(character));
+        String newValue=array[1].trim();
+        KeepData.setKeepHashData(dataParameter,newValue);
+    }
+
 
     public void mouseHover(By locator){
 
