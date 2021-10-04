@@ -3,6 +3,7 @@ package stepdefs;
 
 import GeneralFiles.JsonMethods;
 import GeneralFiles.KeepData;
+import GeneralFiles.ReportMethods;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.cucumber.java.en.And;
@@ -32,6 +33,7 @@ import java.util.regex.Pattern;
 import static BaseFiles.DriverManager.getDriver;
 
 
+
 public class MainMethods {
 
     public static ArrayList<String> windowList;
@@ -39,6 +41,8 @@ public class MainMethods {
     private  static final String NUMERIC_STRING="1234567890";
 
     public AppiumDriver driver= getDriver();
+
+    ReportMethods report=new ReportMethods();
 
     public MobileElement waitUntilVisibleByLocator(By locator) {
         MobileElement element = null;
@@ -175,6 +179,7 @@ public class MainMethods {
         By locator=JsonMethods.getLocator(jsonParameterName);
         MobileElement element = this.waitUntilVisibleByLocator(locator);
         this.clickElement(element);
+        report.Report_Info(jsonParameterName+" tiklanir");
     }
 
     @And("^\"([^\"]*)\" JS araciligi ile tiklanir$")
@@ -184,6 +189,7 @@ public class MainMethods {
            MobileElement element= (MobileElement) driver.findElement(locator);
            JavascriptExecutor executor = (JavascriptExecutor) driver;
            executor.executeScript("arguments[0].click();", element);
+           report.Report_Info(jsonParameterName+" JS araciligi ile tiklanir");
        }catch (Exception e){
            Assert.fail(e.getMessage());
        }
@@ -225,30 +231,34 @@ public class MainMethods {
     }
 
     @And("^\"([^\"]*)\" icerisine \"([^\"]*)\" parametre icindeki veri girilir$")
-    public void sendKeysToElementUsingHashedData(String jsonParameterData, String dataParameter){
-        By locator=JsonMethods.getLocator(jsonParameterData);
+    public void sendKeysToElementUsingHashedData(String jsonParameterName, String dataParameter){
+        By locator=JsonMethods.getLocator(jsonParameterName);
         String text= KeepData.getKeepHashData(dataParameter);
         MobileElement element = this.waitUntilVisibleByLocator(locator);
         element = this.waitUntilPresenceOfElement(locator);
         element.clear();
         element.sendKeys(new CharSequence[]{text});
+        report.Report_Info(jsonParameterName+" icerisine "+text+" verisi girilir");
     }
 
     @And("^\"([^\"]*)\" icerisine \"([^\"]*)\" verisi girilir$")
-    public void sendKeysToElement(String jsonParameterData, String text) {
-        By locator=JsonMethods.getLocator(jsonParameterData);
+    public void sendKeysToElement(String jsonParameterName, String text) {
+        By locator=JsonMethods.getLocator(jsonParameterName);
         MobileElement element = this.waitUntilVisibleByLocator(locator);
         element = this.waitUntilPresenceOfElement(locator);
         element.clear();
         element.sendKeys(new CharSequence[]{text});
+        report.Report_Info(jsonParameterName+" icerisine "+text+" verisi girilir");
     }
 
     @And("^\"([^\"]*)\" elementlerinden \"([^\"]*)\" siradakinin icerisine \"([^\"]*)\" verisi girilir$")
-    protected void sendKeysToElementInList(String jsonParameterData,String index, String text) {
-        By locator=JsonMethods.getLocator(jsonParameterData);
+    protected void sendKeysToElementInList(String jsonParameterName,String index, String text) {
+        By locator=JsonMethods.getLocator(jsonParameterName);
         MobileElement element = getMobileElementInList(locator,Integer.parseInt(index));
         element.clear();
         element.sendKeys(new CharSequence[]{text});
+        report.Report_Info(jsonParameterName+" elementlerinden "
+                +index+". siradakinin icerisine "+text+" verisi girilir");
     }
 
     protected void sendKeysToElement(By locator, Keys keys) {
@@ -258,17 +268,19 @@ public class MainMethods {
     }
 
     @And("^\"([^\"]*)\" icin ENTER tusuna tiklanir$")
-    public void clickEnterButton(String jsonParameterData){
-        By locator=JsonMethods.getLocator(jsonParameterData);
+    public void clickEnterButton(String jsonParameterName){
+        By locator=JsonMethods.getLocator(jsonParameterName);
         Keys keys= Keys.ENTER;
         sendKeysToElement(locator,keys);
+        report.Report_Info(jsonParameterName+" icin ENTER tusuna tiklanir");
     }
 
     @And("^\"([^\"]*)\" icin TAB tusuna tiklanir$")
-    public void clickTabButton(String jsonParameterData){
-        By locator=JsonMethods.getLocator(jsonParameterData);
+    public void clickTabButton(String jsonParameterName){
+        By locator=JsonMethods.getLocator(jsonParameterName);
         Keys keys= Keys.TAB;
         sendKeysToElement(locator,keys);
+        report.Report_Info(jsonParameterName+" icin TAB tusuna tiklanir");
     }
 
     protected void sendKeysToElement(MobileElement element, String text) {
@@ -434,19 +446,22 @@ public class MainMethods {
     }
 
     @And("^\"([^\"]*)\" icindeki veriyi \"([^\"]*)\" olarak kaydet$")
-    public void setDataInHashMap(String jsonParameterData, String dataParameter){
-        By locator=JsonMethods.getLocator(jsonParameterData);
+    public void setDataInHashMap(String jsonParameterName, String dataParameter){
+        By locator=JsonMethods.getLocator(jsonParameterName);
         String value=getData(locator);
         KeepData.setKeepHashData(dataParameter,value);
+        report.Report_Info(jsonParameterName+" icerisindeki veriyi "+value+" olarak kaydedilir");
     }
 
     @And("^\"([^\"]*)\" icindeki veriyi \"([^\"]*)\" karakteri ile bol ve \"([^\"]*)\" olarak kaydet$")
-    public void setDataInHashMap(String jsonParameterData, String character, String dataParameter){
-        By locator=JsonMethods.getLocator(jsonParameterData);
+    public void setDataInHashMap(String jsonParameterName, String character, String dataParameter){
+        By locator=JsonMethods.getLocator(jsonParameterName);
         String value=getData(locator);
         String[] array=value.split(Pattern.quote(character));
         String newValue=array[1].trim();
         KeepData.setKeepHashData(dataParameter,newValue);
+        report.Report_Info(jsonParameterName+" icerisindeki veriyi '"+character+"' karakteri ile bol ve "
+        +newValue+" olarak kaydet");
     }
 
 
@@ -578,6 +593,7 @@ public class MainMethods {
                 Thread.sleep(1000);
             }
             getLatestWindow();
+            report.Report_Info("Geri butonuna tiklanir");
         }catch (Exception e){
             Assert.fail(e.getMessage());
         }
@@ -1009,6 +1025,7 @@ public class MainMethods {
     @And("^Uygulamanin cache ini temizle$")
     public void cleanAppCache(){
         driver.resetApp();
+        report.Report_Info("uygulamanin cache ini temizle");
     }
 
 
