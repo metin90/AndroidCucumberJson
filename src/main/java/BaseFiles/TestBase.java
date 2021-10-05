@@ -1,10 +1,9 @@
 package BaseFiles;
 
-import GeneralFiles.JsonMethods;
+
 import GeneralFiles.PropertiesFileReader;
 
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.*;
 import org.testng.annotations.*;
@@ -25,11 +24,12 @@ public class TestBase {
     public static String PLATFORMNAME=null;
     public static boolean IOSREALDEVICE=false;
     public static boolean USEFREEPORT_VIA_NODEJS=false;
+    public static String UDID=null;
 
 
     public static AppiumDriver driver;
 
-    public void initializeConfig(String platformName){
+    public void initializeConfig(String platformName,String udID){
 
         try {
 
@@ -39,6 +39,7 @@ public class TestBase {
             RETRY=Integer.parseInt((properties.getProperty("reTry")).trim());
             JIRALINK=properties.getProperty("jiraLink")+"/";
             PLATFORMNAME=platformName;
+            UDID=udID;
 
             if (properties.getProperty("activate_AppiumServer_WithNodeJS").toLowerCase().equalsIgnoreCase("true")){
                 ACTIVATE_APPIUMSERVER_WITH_NODEJS=true;
@@ -78,7 +79,7 @@ public class TestBase {
     @BeforeMethod(alwaysRun = true)
     public void beforeMethod(Method method,ITestResult arg1,String platformName_,String deviceName_, String platformVersion_, String UDID_, String IPAddress_,String Port_){
 
-        initializeConfig(platformName_);
+        initializeConfig(platformName_,UDID_);
         ExtentTestManager.startTest(method.getName(),arg1.getMethod().getDescription());
         DesiredCapabilities dc =null;
 

@@ -85,12 +85,12 @@ public class KeepData {
     }
 
     public static String getKeepHashData(String parameter) {
-        parameter=parameter+"-"+TestBase.PLATFORMNAME;
+        parameter=parameter+"-"+TestBase.UDID;
         return keepHashData.get(parameter);
     }
 
     public static void setKeepHashData(String parameter, String value) {
-        parameter=parameter+"-"+TestBase.PLATFORMNAME;
+        parameter=parameter+"-"+TestBase.UDID;
         KeepData.keepHashData.put(parameter,value);
     }
 }
