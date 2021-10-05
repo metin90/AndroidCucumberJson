@@ -57,31 +57,6 @@
                         </configuration>
                     </plugin>
 
-                    <plugin>
-                        <groupId>net.masterthought</groupId>
-                        <artifactId>maven-cucumber-reporting</artifactId>
-                        <version>3.15.0</version>
-                        <executions>
-                            <execution>
-                                <id>execution</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>generate</goal>
-                                </goals>
-                                <configuration>
-                                    <projectName>AndroidCucumber</projectName>
-                                    <outputDirectory>${project.build.directory}/cucumber-JVM-reports</outputDirectory>
-                                    <cucumberOutput>${project.build.directory}/cucumber.json</cucumberOutput>
-<!--                                    <skippedFails>true</skippedFails>-->
-<!--                                    <enableFlashCharts>true</enableFlashCharts>-->
-                                    <buildNumber>1</buildNumber>
-                                </configuration>
-                            </execution>
-                        </executions>
-
-                    </plugin>
-
-
                 </plugins>
                 <resources>
                     <resource> <directory>src/main/resources</directory> </resource>
@@ -361,6 +336,30 @@
             <groupId>com.googlecode.json-simple</groupId>
             <artifactId>json-simple</artifactId>
             <version>1.1.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ojdbc6</groupId>
+            <artifactId>ojdbc6</artifactId>
+            <scope>system</scope>
+            <version>2.0</version>
+            <systemPath>${basedir}/JarFiles/ojdbc6.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>SmsClient</groupId>
+            <artifactId>SmsClient_v2</artifactId>
+            <scope>system</scope>
+            <version>1.0</version>
+            <systemPath>${basedir}/JarFiles/SmsClient_v2.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>otomasyonCommon</groupId>
+            <artifactId>otomasyonCommon</artifactId>
+            <scope>system</scope>
+            <version>2.0</version>
+            <systemPath>${basedir}/JarFiles/otomasyonCommon-1.3-without-libs.jar</systemPath>
         </dependency>
 
 
