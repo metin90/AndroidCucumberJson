@@ -99,8 +99,7 @@ public class LaunchAppiumServerWithNodeJS extends AndroidConstants {
                localService.start();
 
            }
-
-           System.out.println("Appium Server is at your service!");
+           System.out.println("Appium Server is at your service! IP Address: "+ipAddress+", Port: "+usingPort);
 
        }catch (Exception e){
            System.out.println("Service got error while starting: "+e.getMessage());
