@@ -25,6 +25,7 @@ public class TestBase {
     public static boolean IOSREALDEVICE=false;
     public static boolean USEFREEPORT_VIA_NODEJS=false;
     public static String UDID=null;
+    public static boolean TRIGGER_APPIUMSERVER_MANUALLY=false;
 
 
     public static AppiumDriver driver;
@@ -57,6 +58,10 @@ public class TestBase {
                 ACTIVATE_APPIUMSERVER_WITH_NODEJS=true;
             }
 
+            if (properties.getProperty("trigger_AppiumServer_Manually").toLowerCase().equalsIgnoreCase("true")){
+                TRIGGER_APPIUMSERVER_MANUALLY=true;
+            }
+
         }catch (Exception e){
             Assert.assertTrue(false,"Please check main/resouces/config.properties file !");
         }
@@ -85,13 +90,15 @@ public class TestBase {
 
 
         try {
-            if (!ACTIVATE_APPIUMSERVER_WITH_NODEJS){
+            if (!ACTIVATE_APPIUMSERVER_WITH_NODEJS || TRIGGER_APPIUMSERVER_MANUALLY){
                 if (PLATFORMNAME.equalsIgnoreCase("Android")) {
                     dc=Android.getCapabilities(platformName_, deviceName_, UDID_, IPAddress_, Port_);
                 }else{
                     dc= IOS.getCapabilities(platformName_, deviceName_,platformVersion_, UDID_, IPAddress_, Port_);
                 }
-                LaunchAppiumServer.startAppiumServer(dc,IPAddress_,Port_);
+                if (!TRIGGER_APPIUMSERVER_MANUALLY){
+                    LaunchAppiumServer.startAppiumServer(dc,IPAddress_,Port_);
+                }
             }else{
                 LaunchAppiumServerWithNodeJS.startAppium(IPAddress_,Integer.parseInt(Port_));
             }
@@ -110,10 +117,12 @@ public class TestBase {
         if (DriverManager.getDriver() != null && !DriverManager.getDriver().toString().contains("null")) {
             DriverManager.getDriver().quit();
 
-            if (!ACTIVATE_APPIUMSERVER_WITH_NODEJS){
-                LaunchAppiumServer.stopAppiumServer();
-            }else{
-                LaunchAppiumServerWithNodeJS.stopAppium();
+            if (!TRIGGER_APPIUMSERVER_MANUALLY){
+                if (!ACTIVATE_APPIUMSERVER_WITH_NODEJS){
+                    LaunchAppiumServer.stopAppiumServer();
+                }else{
+                    LaunchAppiumServerWithNodeJS.stopAppium();
+                }
             }
         }
 
