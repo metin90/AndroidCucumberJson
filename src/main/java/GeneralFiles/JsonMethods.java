@@ -1,9 +1,9 @@
 package GeneralFiles;
 
 import BaseFiles.TestBase;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import io.cucumber.messages.internal.com.google.gson.JsonArray;
+import io.cucumber.messages.internal.com.google.gson.JsonObject;
+import io.cucumber.messages.internal.com.google.gson.JsonParser;
 import org.openqa.selenium.By;
 
 import java.io.FileReader;

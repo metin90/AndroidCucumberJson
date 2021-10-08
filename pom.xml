@@ -248,7 +248,7 @@
         <dependency>
             <groupId>io.appium</groupId>
             <artifactId>java-client</artifactId>
-            <version>7.3.0</version>
+            <version>7.5.1</version>
         </dependency>
 
         <dependency>
@@ -330,13 +330,12 @@
             <version>5.5.3</version>
         </dependency>
 
-
-        <!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
         <dependency>
-            <groupId>com.googlecode.json-simple</groupId>
-            <artifactId>json-simple</artifactId>
-            <version>1.1.1</version>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>3.0.0-M4</version>
         </dependency>
+
 
         <dependency>
             <groupId>ojdbc6</groupId>
