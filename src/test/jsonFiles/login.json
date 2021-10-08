@@ -1,0 +1,20 @@
+{
+  "testData": [
+    {
+      "platformName": "Android",
+      "username": "id;com.dolap.android:id/edittext_email_username",
+      "password": "id;com.dolap.android:id/edittext_password",
+      "login button": "id;com.dolap.android:id/button_login"
+    },
+    {
+      "platformName": "iOS",
+      "notificationPermission": "AccessibilityId;İzin Ver",
+      "developmentSDKLibraryMessage": "AccessibilityId;OK",
+      "skipSlide": "AccessibilityId;Atla",
+      "locationPermisson": "xpath;//XCUIElementTypeButton[@name=\"İzin Ver\"]",
+      "username": "iOSNsPredicateString;type == 'XCUIElementTypeTextField'",
+      "password": "AccessibilityId;Dijital Şifre",
+      "DevamButton": "AccessibilityId;DEVAM"
+    }
+  ]
+}

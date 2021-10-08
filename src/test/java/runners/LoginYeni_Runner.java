@@ -12,9 +12,9 @@ import org.testng.annotations.Test;
 
 
 @CucumberOptions(
-        features = "src/test/resources/features/LoginYeni.feature",
+        features = "src/test/resources/features/vakifbankLogin.feature",
         glue = {"stepdefs"},
-        tags = "@LoginYeniTest",
+        tags = "@LoginIOS",
         plugin = {
 
                 "pretty",

@@ -1,0 +1,29 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Automation Suite" allow-return-values="true" verbose="1" parallel="tests"
+       thread-count="2"  configfailurepolicy="continue">
+
+    <listeners>
+        <listener class-name="utils.Listeners.TestListener"/>
+        <listener class-name="utils.Listeners.AnnotationTransformer"/>
+        <listener class-name="utils.CustomizedReport.CustomizedEmailableReport"/>
+    </listeners>
+
+
+
+    <test name="Test" parallel="false">
+        <parameter name="platformName_" value="iOS"/>
+        <parameter name="deviceName_" value="iPhone 6"/>
+        <parameter name="UDID_" value="04986e4223c1aaec5e2becc542e6b2ced2688130"/>
+        <parameter name="platformVersion_" value="12.4.6"></parameter>
+        <parameter name="IPAddress_" value="127.0.0.1"/>
+        <parameter name="Port_" value="4723"/>
+        <classes>
+            <class name="runners.LoginYeni_Runner"> </class>
+        </classes>
+    </test>
+
+
+
+
+
+</suite>

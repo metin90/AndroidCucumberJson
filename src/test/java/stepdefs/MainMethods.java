@@ -1,11 +1,13 @@
 package stepdefs;
 
 
+import BaseFiles.TestBase;
 import GeneralFiles.JsonMethods;
 import GeneralFiles.KeepData;
 import GeneralFiles.ReportMethods;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.remote.HideKeyboardStrategy;
 import io.cucumber.java.en.And;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.openqa.selenium.NoSuchElementException;
@@ -180,6 +182,15 @@ public class MainMethods {
         MobileElement element = this.waitUntilVisibleByLocator(locator);
         this.clickElement(element);
         report.Report_Info(jsonParameterName+" tiklanir");
+    }
+
+    @And("^\"([^\"]*)\" butonunu en fazla \"([^\"]*)\" sn bekle, var ise tikla")
+    public void clickElementIfItExists(String jsonParameterName, String second) {
+        By locator=JsonMethods.getLocator(jsonParameterName);
+        boolean elementExist=waitElementWithThreadSleep(locator,Integer.valueOf(second));
+        if (elementExist){
+            clickElement(locator);
+        }
     }
 
     @And("^\"([^\"]*)\" JS araciligi ile tiklanir$")
@@ -1027,6 +1038,21 @@ public class MainMethods {
         driver.resetApp();
         report.Report_Info("uygulamanin cache ini temizle");
     }
+
+    public void hideKeybordForIOSDevice(){
+        if (TestBase.PLATFORMNAME.equals("iOS")){
+            try {
+                By locator=By.name("Tamam");
+                clickElementInList(locator,0);
+                Thread.sleep(1000);
+            }catch (Exception e){
+                Assert.fail(e.getMessage());
+            }
+        }
+    }
+
+
+
 
 
 
