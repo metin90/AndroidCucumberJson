@@ -1,6 +1,7 @@
 package GeneralFiles;
 
 import BaseFiles.TestBase;
+import io.appium.java_client.MobileBy;
 import io.cucumber.messages.internal.com.google.gson.JsonArray;
 import io.cucumber.messages.internal.com.google.gson.JsonObject;
 import io.cucumber.messages.internal.com.google.gson.JsonParser;
@@ -64,20 +65,28 @@ public class JsonMethods {
             data=data.substring(0,data.length() - 1);
 
             if(array[0].equalsIgnoreCase("id")){
-                locator=By.id(data);
+                locator= MobileBy.id(data);
             }else if(array[0].equalsIgnoreCase("className")){
-                locator=By.className(data);
+                locator=MobileBy.className(data);
             }else if(array[0].equalsIgnoreCase("xpath")){
-                locator=By.xpath(data);
+                locator=MobileBy.xpath(data);
             }else if(array[0].equalsIgnoreCase("cssSelector")){
-                locator=By.cssSelector(data);
+                locator=MobileBy.cssSelector(data);
             }else if(array[0].equalsIgnoreCase("linkText")){
-                locator=By.linkText(data);
+                locator=MobileBy.linkText(data);
             }else if(array[0].equalsIgnoreCase("partialLinkText")){
-                locator=By.partialLinkText(data);
+                locator=MobileBy.partialLinkText(data);
+            }else if(array[0].equalsIgnoreCase("AccessibilityId")){
+                locator=MobileBy.AccessibilityId(data);
+            }else if(array[0].equalsIgnoreCase("iOSNsPredicateString") || array[0].contains("predicate")){
+                locator=MobileBy.iOSNsPredicateString(data);
+            }else if(array[0].equalsIgnoreCase("iOSClassChain") || array[0].contains("chain")){
+                locator=MobileBy.iOSClassChain(data);
+            }else if(array[0].equalsIgnoreCase("AndroidUIAutomator")) {
+                locator = MobileBy.AndroidUIAutomator(data);
             }
 
-        }catch (Exception e){
+            }catch (Exception e){
             e.printStackTrace();
         }
         return locator;
