@@ -55,21 +55,51 @@ public class LaunchAppiumServerWithNodeJS extends AndroidConstants {
         return actualJSPath;
     }
 
+    public static String getNodeJSPath() throws IOException, InterruptedException {
+
+        String jsPaths = null;
+        String actualNodeJSPath = null;
+
+        String operatingSystem = System.getProperty("os.name");
+
+        if (operatingSystem.contains("Win")) {
+            String whereAppium = "where" + " " + "node";
+            Process p = Runtime.getRuntime().exec(whereAppium);
+            BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+            while ((jsPaths = stdInput.readLine()) != null) {
+                actualNodeJSPath = jsPaths;
+                break;
+            }
+
+            p.waitFor();
+            p.destroy();
+
+            if (actualNodeJSPath == null) {
+                System.exit(0);
+            }
+
+        } else {
+            actualNodeJSPath = Data.path_NodeJS_mac;
+        }
+        return actualNodeJSPath;
+    }
+
     public static void startAppium(String ipAddress, int usingPort){
 
        try {
-           String nodeJSPath="";
-           if (OsCheck.getOperatingSystemType().equals("Windows")){
-               nodeJSPath=Data.path_NodeJS_Win;
-           }else{
-               nodeJSPath=Data.path_NodeJS_mac;
-           }
+//           String nodeJSPath="";
+//           if (OsCheck.getOperatingSystemType().equals("Windows")){
+//               nodeJSPath=Data.path_NodeJS_Win;
+//           }else{
+//               nodeJSPath=Data.path_NodeJS_mac;
+//           }
 
            System.out.println("Trying to start appium Server!");
 
            if (!TestBase.USEFREEPORT_VIA_NODEJS){
                Map<String, String> env = new HashMap<>(System.getenv());
-               service=new AppiumServiceBuilder().usingDriverExecutable(new File(nodeJSPath))
+               service=new AppiumServiceBuilder().usingDriverExecutable(new File(getNodeJSPath()))
                        .withAppiumJS(new File(getJSPath()))
                        .withIPAddress(ipAddress).usingPort(usingPort)
                        .withArgument(GeneralServerFlag.SESSION_OVERRIDE)
@@ -80,13 +110,14 @@ public class LaunchAppiumServerWithNodeJS extends AndroidConstants {
                        .withStartUpTimeOut(120, TimeUnit.SECONDS);
                BasicConfigurator.configure();
                service.build().start();
+               System.out.println("Appium Server is at your service! IP Address: "+ipAddress+", Port: "+usingPort);
 
            }else{
                Map<String, String> env = new HashMap<>(System.getenv());
                localService = AppiumDriverLocalService.buildService(new AppiumServiceBuilder()
                        .usingAnyFreePort()
                        .withAppiumJS(new File(getJSPath()))
-                       .usingDriverExecutable(new File(nodeJSPath))
+                       .usingDriverExecutable(new File(getNodeJSPath()))
                        .withArgument(GeneralServerFlag.SESSION_OVERRIDE)
                        .withArgument(GeneralServerFlag.LOG_LEVEL, "error")
                        .withArgument(GeneralServerFlag.RELAXED_SECURITY)
@@ -97,9 +128,8 @@ public class LaunchAppiumServerWithNodeJS extends AndroidConstants {
                System.out.println("New Appium service: " + localService.getUrl());
                KeepData.setUrl(String.valueOf(localService.getUrl()));
                localService.start();
-
+               System.out.println("Appium Server is at your service :"+localService.getUrl());
            }
-           System.out.println("Appium Server is at your service! IP Address: "+ipAddress+", Port: "+usingPort);
 
        }catch (Exception e){
            System.out.println("Service got error while starting: "+e.getMessage());

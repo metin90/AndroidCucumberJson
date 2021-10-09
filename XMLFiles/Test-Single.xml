@@ -12,13 +12,13 @@
 
     <test name="Test" parallel="false">
         <parameter name="platformName_" value="Android"/>
-        <parameter name="deviceName_" value="b1e8d8c1"/>
-        <parameter name="UDID_" value="b1e8d8c1"/>
+        <parameter name="deviceName_" value="emulator-5554"/>
+        <parameter name="UDID_" value="emulator-5554"/>
         <parameter name="platformVersion_" value="14.2.2"></parameter>
-        <parameter name="IPAddress_" value="0.0.0.0"/>
-        <parameter name="Port_" value="4725"/>
+        <parameter name="IPAddress_" value="127.0.0.1"/>
+        <parameter name="Port_" value="4723"/>
         <classes>
-            <class name="runners.LoginYeni_Runner"> </class>
+            <class name="runners.LoginYeni_Runner_Dolap"> </class>
         </classes>
     </test>
 
